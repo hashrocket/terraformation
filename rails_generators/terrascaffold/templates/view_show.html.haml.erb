@@ -1,0 +1,8 @@
+%dl[@<%= singular_name %>]
+<% for attribute in attributes -%>
+  %dt <%= attribute.column.human_name %>
+  %dd= h @<%= singular_name %>.<%= attribute.name %>
+
+<% end -%>
+%p= link_to 'Edit', [:edit, @<%= singular_name %>]
+%p= link_to 'Back', <%= plural_name %>_path

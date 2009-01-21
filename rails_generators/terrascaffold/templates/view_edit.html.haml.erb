@@ -1,0 +1,8 @@
+%h2 Editing <%= singular_name.humanize %>
+
+- form_for @<%= singular_name %> do |f|
+  = render :partial => 'form', :object => f
+  %div= f.submit "Update"
+
+%p= link_to 'Show', @<%= singular_name %>
+%p= link_to 'Back', <%= plural_name %>_path

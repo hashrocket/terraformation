@@ -1,0 +1,7 @@
+= form.error_messages
+
+<% for attribute in attributes -%>
+%div
+  = form.label :<%= attribute.name %>, <%= attribute.column.human_name.inspect %>
+  = form.<%= attribute.field_type %> :<%= attribute.name %>
+<% end %>
