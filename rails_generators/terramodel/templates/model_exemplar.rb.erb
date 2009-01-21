@@ -1,0 +1,5 @@
+class <%= class_name %>
+<% for attribute in attributes -%>
+  generator_for :<%= attribute.name %>, <%= attribute.default.inspect %>
+<% end -%>
+end

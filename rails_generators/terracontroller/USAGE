@@ -1,0 +1,26 @@
+Description:
+    The terracontroller generator creates a new controller and optionally its
+    views.
+
+    Views are given a .html.haml suffix by default but this can be overridden
+    by giving one or both extensions on the command line.
+
+Example:
+    ./script/generate terracontroller planets rotate revolve
+        ...
+        create  spec/controllers/planets_controller_spec.rb
+        create  app/controllers/planets_controller.rb
+        create  spec/views/planets/rotate.html_spec.rb
+        create  app/views/planets/rotate.html.haml
+        create  spec/views/planets/revolve.html_spec.rb
+        create  app/views/planets/revolve.html.haml
+
+Advanced Example:
+    ./script/generate terracontroller 'admin/planets' rotate.html rotate.rss
+        ...
+        create  spec/controllers/admin/planets_controller_spec.rb
+        create  app/controllers/admin/planets_controller.rb
+        create  spec/views/admin/planets/rotate.html_spec.rb
+        create  app/views/admin/planets/rotate.html.haml
+        create  spec/views/admin/planets/rotate.rss_spec.rb
+        create  app/views/admin/planets/rotate.rss.builder

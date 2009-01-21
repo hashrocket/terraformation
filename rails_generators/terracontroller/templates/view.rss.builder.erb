@@ -1,0 +1,18 @@
+xml.instruct!
+xml.rss :version => 2.0, 'xmlns:atom' => "http://www.w3.org/2005/Atom" do
+  xml.channel do
+    xml.title "<%= class_name %>#<%= action %>"
+    xml.description "Find me in <%= path %>"
+    xml.language "en-us"
+    xml.link url_for(params.merge(:format => nil, :only_path => false))
+    xml.atom :link, :href => url_for(params.merge(:only_path => false)), :rel => 'self'
+
+    xml.item do
+      xml.title "Title"
+      xml.description "Descriptions"
+      xml.pubDate "#{Time.now.to_s(:rfc822)}"
+      xml.link request.request_uri
+      xml.guid request.request_uri
+    end
+  end
+end

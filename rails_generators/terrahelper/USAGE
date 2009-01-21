@@ -1,0 +1,9 @@
+Description:
+    The terrahelper generator creates a helper and spec.  Additional arguments
+    are defined as empty methods in the helper.
+
+Example:
+    ./script/generate terrahelper moons land rove
+        ...
+        create  spec/helpers/moons_helper_spec.rb
+        create  app/helpers/moons_helper.rb

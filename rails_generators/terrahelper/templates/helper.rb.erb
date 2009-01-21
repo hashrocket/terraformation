@@ -1,0 +1,10 @@
+module <%= class_name %>Helper
+<% if actions.any? -%>
+
+<% actions.each do |method| -%>
+  def <%= method %>
+  end
+
+<% end -%>
+<% end -%>
+end

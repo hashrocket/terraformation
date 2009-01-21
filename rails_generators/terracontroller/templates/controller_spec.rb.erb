@@ -1,0 +1,20 @@
+require File.expand_path(File.dirname(__FILE__) + '<%= '/..' * class_nesting_depth %>/../spec_helper')
+
+describe <%= class_name %>Controller do
+<% unless actions.empty? -%>
+<% for action in actions -%>
+
+  describe "GET '<%= action %>'" do
+    def do_request
+      get :<%= action %>
+    end
+    protected :do_request
+
+    it "should be successful" do
+      do_request
+      response.should be_success
+    end
+  end
+<% end -%>
+<% end -%>
+end

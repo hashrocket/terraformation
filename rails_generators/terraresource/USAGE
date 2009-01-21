@@ -1,0 +1,20 @@
+Description:
+    The terraresource generator creates a model, restful controller, and
+    optionally views.
+
+    This command accepts both field arguments (as with terramodel) and
+    template arguments (as with terracontroller).
+
+Example:
+    ./script/generate terraresource space_colony population:integer show
+        ...
+        create  spec/controllers/space_colonies_controller_spec.rb
+        create  app/controllers/space_colonies_controller.rb
+        create  spec/views/space_colonies/show.html_spec.rb
+        create  app/views/space_colonies/show.html.haml
+         route  map.resources :space_colonies
+    dependency  terramodel
+        create    app/models/space_colony.rb
+        create    spec/models/space_colony_spec.rb
+        create    spec/exemplars/space_colony_exemplar.rb
+        create    db/migrate/20090121225002_create_space_colonies.rb

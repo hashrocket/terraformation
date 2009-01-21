@@ -1,0 +1,11 @@
+Description:
+    The terramodel generator creates a new model.  An Object Daddy exemplar is
+    created if a spec/exemplars directory exists.
+
+Example:
+    ./script/generate terramodel Spaceship fuel_capacity:decimal
+        ...
+        create  app/models/space_colony.rb
+        create  spec/models/spaceship_spec.rb
+        create  spec/exemplars/spaceship_exemplar.rb
+        create  db/migrate/20090121225002_create_spaceships.rb

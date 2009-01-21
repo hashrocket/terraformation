@@ -1,0 +1,13 @@
+require File.expand_path(File.dirname(__FILE__) + '<%= '/..' * class_nesting_depth %>/../spec_helper')
+
+describe <%= class_name %>Helper do
+<% if actions.any? -%>
+
+<% actions.each do |method| -%>
+  it "should provide <%= method %>" do
+    helper.should respond_to :<%= method %>
+  end
+
+<% end -%>
+<% end -%>
+end
