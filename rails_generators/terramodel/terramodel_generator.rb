@@ -35,6 +35,10 @@ class TerramodelGenerator < ModelGenerator
 
   protected
 
+  def banner
+    "Usage: #{$0} terramodel ModelName [field:type field:type]"
+  end
+
   def add_options!(opt)
     super
     opt.on("--[no-]exemplar", "Create Exemplar") do |b|

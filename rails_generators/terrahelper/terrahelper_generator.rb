@@ -17,4 +17,11 @@ class TerrahelperGenerator < ControllerGenerator
 
     end
   end
+
+  protected
+
+  def banner
+    "Usage: #{$0} terrahelper HelperName [methodOne methodTwo]"
+  end
+
 end

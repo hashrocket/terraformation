@@ -53,4 +53,11 @@ class TerracontrollerGenerator < ControllerGenerator
       end
     end
   end
+
+  protected
+
+  def banner
+    "Usage: #{$0} terracontroller ControllerName [action]"
+  end
+
 end
