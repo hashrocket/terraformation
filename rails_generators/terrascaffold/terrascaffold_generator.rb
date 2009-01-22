@@ -33,14 +33,9 @@ class TerrascaffoldGenerator < Rails::Generator::NamedBase
       m.class_collisions(controller_class_path, "#{controller_class_name}Controller")
       m.class_collisions(class_path, "#{class_name}")
 
-      m.directory(File.join('app/models', class_path))
       m.directory(File.join('app/controllers', controller_class_path))
       m.directory(File.join('app/views', controller_class_path, controller_file_name))
       m.directory(File.join('spec/controllers', controller_class_path))
-      m.directory(File.join('spec/models', class_path))
-      if options[:exemplar]
-        m.directory File.join('spec/exemplars', class_path)
-      end
       m.directory File.join('spec/views', controller_class_path, controller_file_name)
 
       m.template 'controller_spec.rb.erb',
@@ -62,20 +57,7 @@ class TerrascaffoldGenerator < Rails::Generator::NamedBase
         File.join('app/views', controller_class_path, controller_file_name, "_form.html.#{@default_template_engine}")
       )
 
-      m.template 'model:model.rb',      File.join('app/models', class_path, "#{file_name}.rb")
-      if exist?('spec/fixtures')
-        m.template 'model:fixtures.yml',  File.join('spec/fixtures', class_path, "#{table_name}.yml")
-      end
-      if exemplar?
-        m.template 'terramodel:model_exemplar.rb.erb', File.join('spec/exemplars', class_path, "#{file_name}_exemplar.rb")
-      end
-      m.template 'terramodel:model_spec.rb.erb',       File.join('spec/models', class_path, "#{file_name}_spec.rb")
-
-      unless options[:skip_migration]
-        m.migration_template 'model:migration.rb', 'db/migrate', :assigns => {
-          :migration_name => "Create#{class_name.pluralize.gsub(/::/, '')}",
-        }, :migration_file_name => "create_#{file_path.gsub(/\//, '_').pluralize}"
-      end
+      m.dependency 'terramodel', [name] + args, :collision => 'skip'
 
       m.route_resources controller_file_name
 
