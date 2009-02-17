@@ -1,27 +1,8 @@
 require 'rails_generator/generators/components/controller/controller_generator'
+require File.dirname(__FILE__) + '/../terraforming'
 
 class TerracontrollerGenerator < ControllerGenerator
-
-  def views
-    args.map do |arg|
-      case arg
-        when /^\w+\.\w+\.\w+$/ then arg
-        when /^\w+$/ then "#{arg}.html.haml"
-        when /^\w+\.js$/ then "#{arg}.rjs"
-        when /^\w+\.(?:html|fbml)$/ then "#{arg}.haml"
-        when /^\w+\.(?:xml|rss|atom)$/ then "#{arg}.builder"
-        else usage
-      end
-    end
-  end
-
-  def actions
-    args.map do |arg|
-      arg.sub(/\..*$/,'')
-    end.uniq.reject do |arg|
-      arg =~ /^_/
-    end
-  end
+  include Terraforming
 
   def manifest
     record do |m|
