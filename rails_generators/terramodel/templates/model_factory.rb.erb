@@ -1,0 +1,5 @@
+Factory.define <%= full_name.to_sym.inspect %> do |factory|
+<% for attribute in attributes -%>
+  factory.<%= attribute.name %> <%= attribute.default.inspect %>
+<% end -%>
+end

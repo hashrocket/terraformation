@@ -11,14 +11,20 @@ class TerramodelGenerator < ModelGenerator
 
       m.directory File.join('app/models', class_path)
       m.directory File.join('spec/models', class_path)
-      if options[:exemplar]
+      if exemplar?
         m.directory File.join('spec/exemplars', class_path)
+      end
+      if factory?
+        m.directory File.join('spec/factories')
       end
 
       m.template 'model:model.rb', File.join('app/models', class_path, "#{file_name}.rb")
       m.template 'model_spec.rb.erb', File.join('spec/models', class_path, "#{file_name}_spec.rb")
       if exemplar?
         m.template 'model_exemplar.rb.erb', File.join('spec/exemplars', class_path, "#{file_name}_exemplar.rb")
+      end
+      if factory?
+        m.template 'model_factory.rb.erb', File.join('spec/factories', "#{full_name}_factory.rb")
       end
       if exist?('spec/fixtures')
         m.template 'model:fixtures.yml',  File.join('spec/fixtures', "#{table_name}.yml")
@@ -41,9 +47,8 @@ class TerramodelGenerator < ModelGenerator
 
   def add_options!(opt)
     super
-    opt.on("--[no-]exemplar", "Create Exemplar") do |b|
-      options[:exemplar] = b
-    end
+    opt.on("--[no-]exemplar", "Create Object Daddy Exemplar") { |v| options[:exemplar] = v }
+    opt.on("--[no-]factory",  "Create Factory Girl Factory")  { |v| options[:factory]  = v }
   end
 
 end

@@ -39,9 +39,6 @@ class TerraresourceGenerator < Rails::Generator::NamedBase
       m.directory(File.join('app/views', controller_class_path, controller_file_name))
       m.directory(File.join('spec/controllers', controller_class_path))
       m.directory(File.join('spec/models', class_path))
-      if options[:exemplar]
-        m.directory File.join('spec/exemplars', class_path)
-      end
       m.directory File.join('spec/views', controller_class_path, controller_file_name)
 
       m.template 'terracontroller:controller_spec.rb.erb',
@@ -82,7 +79,8 @@ class TerraresourceGenerator < Rails::Generator::NamedBase
              "Don't generate a migration file for this model") { |v| options[:skip_migration] = v }
       opt.on("--skip-fixture",
              "Don't generation a fixture file for this model") { |v| options[:skip_fixture] = v }
-      opt.on("--[no-]exemplar", "Create Exemplar") { |v| options[:exemplar] = v }
+      opt.on("--[no-]exemplar", "Create Object Daddy Exemplar") { |v| options[:exemplar] = v }
+      opt.on("--[no-]factory",  "Create Factory Girl Factory")  { |v| options[:factory]  = v }
     end
 
     def scaffold_views

@@ -5,12 +5,20 @@ module Terraforming
   end
 
   def exemplar?
-    options[:exemplar] != false && exist?('spec/exemplars')
+    options[:exemplar] || options[:exemplar].nil? && exist?('spec/exemplars')
+  end
+
+  def factory?
+    options[:factory] || options[:factory].nil? && exist?('spec/factories')
   end
 
   def attributes
     views
     super
+  end
+
+  def full_name
+    (class_path + [singular_name]).join("_")
   end
 
   def views

@@ -74,7 +74,8 @@ class TerrascaffoldGenerator < Rails::Generator::NamedBase
       opt.separator 'Options:'
       opt.on("--skip-migration",
              "Don't generate a migration file for this model") { |v| options[:skip_migration] = v }
-      opt.on("--[no-]exemplar", "Create Exemplar") { |v| options[:exemplar] = v }
+      opt.on("--[no-]exemplar", "Create Object Daddy Exemplar") { |v| options[:exemplar] = v }
+      opt.on("--[no-]factory",  "Create Factory Girl Factory")  { |v| options[:factory]  = v }
     end
 
     def scaffold_views
