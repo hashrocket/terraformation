@@ -11,15 +11,15 @@ class TerraformationGenerator < Rails::Generator::Base
 
   def manifest
     record do |m|
-      m.template  'application.html.haml.erb',   'app/views/layouts/application.html.haml'
-      m.file      'jquery.js',                   'public/javascripts/jquery.js'
-
       if option?(:blueprint)
         m.directory 'public/stylesheets/blueprint'
         m.file      'blueprint/ie.css',          'public/stylesheets/blueprint/ie.css'
         m.file      'blueprint/print.css',       'public/stylesheets/blueprint/print.css'
         m.file      'blueprint/screen.css',      'public/stylesheets/blueprint/screen.css'
       end
+
+      m.file      'jquery.js',                   'public/javascripts/jquery.js'
+      m.template  'application.html.haml.erb',   'app/views/layouts/application.html.haml'
 
       if option?(:gitignore)
         m.file 'gitignore',                      '.gitignore'
