@@ -66,29 +66,30 @@ class TerraresourceGenerator < Rails::Generator::NamedBase
   end
 
   protected
-    def banner
-      "Usage: #{$0} terraresource ModelName [field:type action.format.engine]"
-    end
 
-    def add_options!(opt)
-      opt.separator ''
-      opt.separator 'Options:'
-      opt.on("--skip-timestamps",
-              "Don't add timestamps to the migration file for this model") { |v| options[:skip_timestamps] = true }
-      opt.on("--skip-migration",
-             "Don't generate a migration file for this model") { |v| options[:skip_migration] = v }
-      opt.on("--skip-fixture",
-             "Don't generation a fixture file for this model") { |v| options[:skip_fixture] = v }
-      opt.on("--[no-]exemplar", "Create Object Daddy Exemplar") { |v| options[:exemplar] = v }
-      opt.on("--[no-]factory",  "Create Factory Girl Factory")  { |v| options[:factory]  = v }
-    end
+  def banner
+    "Usage: #{$0} terraresource ModelName [field:type action.format.engine]"
+  end
 
-    def scaffold_views
-      %w[ index show new edit ]
-    end
+  def add_options!(opt)
+    opt.separator ''
+    opt.separator 'Options:'
+    opt.on("--skip-timestamps",
+            "Don't add timestamps to the migration file for this model") { |v| options[:skip_timestamps] = true }
+    opt.on("--skip-migration",
+           "Don't generate a migration file for this model") { |v| options[:skip_migration] = v }
+    opt.on("--skip-fixture",
+           "Don't generation a fixture file for this model") { |v| options[:skip_fixture] = v }
+    opt.on("--[no-]exemplar", "Create Object Daddy Exemplar") { |v| options[:exemplar] = v }
+    opt.on("--[no-]factory",  "Create Factory Girl Factory")  { |v| options[:factory]  = v }
+  end
 
-    def model_name
-      class_name.demodulize
-    end
+  def scaffold_views
+    %w[ index show new edit ]
+  end
+
+  def model_name
+    class_name.demodulize
+  end
 
 end

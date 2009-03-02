@@ -8,7 +8,7 @@ class TerraformationGenerator < Rails::Generator::Base
     end
   end
 
-protected
+  protected
 
   def banner
     "Usage: #{$0} terraformation"

@@ -65,25 +65,26 @@ class TerrascaffoldGenerator < Rails::Generator::NamedBase
   end
 
   protected
-    def banner
-      "Usage: #{$0} terrascaffold ModelName [field:type field:type]"
-    end
 
-    def add_options!(opt)
-      opt.separator ''
-      opt.separator 'Options:'
-      opt.on("--skip-migration",
-             "Don't generate a migration file for this model") { |v| options[:skip_migration] = v }
-      opt.on("--[no-]exemplar", "Create Object Daddy Exemplar") { |v| options[:exemplar] = v }
-      opt.on("--[no-]factory",  "Create Factory Girl Factory")  { |v| options[:factory]  = v }
-    end
+  def banner
+    "Usage: #{$0} terrascaffold ModelName [field:type field:type]"
+  end
 
-    def scaffold_views
-      %w[ index show new edit ]
-    end
+  def add_options!(opt)
+    opt.separator ''
+    opt.separator 'Options:'
+    opt.on("--skip-migration",
+           "Don't generate a migration file for this model") { |v| options[:skip_migration] = v }
+    opt.on("--[no-]exemplar", "Create Object Daddy Exemplar") { |v| options[:exemplar] = v }
+    opt.on("--[no-]factory",  "Create Factory Girl Factory")  { |v| options[:factory]  = v }
+  end
 
-    def model_name
-      class_name.demodulize
-    end
+  def scaffold_views
+    %w[ index show new edit ]
+  end
+
+  def model_name
+    class_name.demodulize
+  end
 
 end
