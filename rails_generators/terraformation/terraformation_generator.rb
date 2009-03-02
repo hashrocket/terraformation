@@ -11,6 +11,11 @@ class TerraformationGenerator < Rails::Generator::Base
         m.file 'blueprint/print.css',            'public/stylesheets/blueprint/print.css'
         m.file 'blueprint/screen.css',           'public/stylesheets/blueprint/screen.css'
       end
+      if options[:gitignore]
+        m.file 'gitignore',                      '.gitignore'
+        m.file 'null_gitignore',                 'tmp/.gitignore'
+        m.file 'null_gitignore',                 'log/.gitignore'
+      end
     end
   end
 
@@ -23,5 +28,6 @@ class TerraformationGenerator < Rails::Generator::Base
   def add_options!(opt)
     super
     opt.on("--[no-]blueprint", "Install Blueprint") { |v| options[:blueprint] = v }
+    opt.on("--[no-]gitignore", "Default gitignore") { |v| options[:gitignore] = v }
   end
 end

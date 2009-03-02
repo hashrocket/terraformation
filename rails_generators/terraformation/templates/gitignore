@@ -1,0 +1,10 @@
+/config/database.yml
+/coverage
+/db/schema.rb
+/doc/api
+/doc/app
+/doc/plugins
+/public/system
+.DS_Store
+*~
+.*.sw?
