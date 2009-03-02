@@ -23,6 +23,8 @@ module Terraforming
         when /^\w+\.js$/ then "#{arg}.rjs"
         when /^\w+\.(?:html|fbml)$/ then "#{arg}.haml"
         when /^\w+\.(?:xml|rss|atom)$/ then "#{arg}.builder"
+        when /^\w+\.\w+$/ then "#{arg}.erb"
+        else next
       end
     end
     @views.compact!
