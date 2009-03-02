@@ -6,7 +6,7 @@
     - if protect_against_forgery?
       %meta{:name => 'authenticity_token', :content => form_authenticity_token}
     %title= h(@title || "Application name")
-<% if options[:blueprint] -%>
+<% if option?(:blueprint) -%>
     = stylesheet_link_tag 'blueprint/screen', :media => 'screen, projection'
     = stylesheet_link_tag 'blueprint/print', :media => 'print'
     /[if IE]
@@ -16,6 +16,6 @@
     = javascript_include_tag 'jquery'
     = javascript_include_tag 'application'
     = yield :head
-%body
-  .container
-    = yield
+  %body
+    .container
+      = yield
