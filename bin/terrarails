@@ -1,0 +1,94 @@
+#!/usr/bin/env ruby
+
+if instance_of?(Object) # Invoked directly
+  if %w(-h --help).include?(ARGV.first)
+    $stderr.puts "With no arguments, runs rake rails:template LOCATION=<filename>"
+    $stderr.puts "Otherwise, runs rails --template <filename> ..."
+    exit 1
+  elsif ARGV.empty?
+    exec('rake', 'rails:template', "LOCATION=#{__FILE__}")
+  else
+    exec('rails', '--template', __FILE__, *ARGV)
+  end
+end
+
+def self.unlink(file)
+  File.unlink(file)
+  log 'rm', file
+rescue Errno::ENOENT
+  log 'missing', file
+end
+
+# Clean up trailing whitespace and ensure a final newline
+def self.reformat(*files)
+  files.each do |file|
+    body = begin; File.read(file); rescue Errno::ENOENT; next; end
+    if body.gsub!(/ +$/,'') || body[-1,1] != "\n"
+      log 'reformat', file
+      File.open(file,'w') do |f|
+        f.puts body
+      end
+    end
+  end
+end
+
+unless File.exist?('config/database.example.yml')
+  file 'config/database.example.yml', File.read('config/database.yml')
+end
+
+unlink 'test/performance/browsing_test.rb'
+%w(test/fixtures test/functional test/integration test/performance test/unit).each do |d|
+  begin
+    Dir.unlink(d)
+  rescue Errno::ENOENT, Errno::ENOTEMPTY
+  end
+end
+if File.directory?('test') && Dir.entries('test').sort == %w(. .. test_helper.rb)
+  unlink 'test/test_helper.rb'
+  Dir.unlink 'test'
+end
+
+%w(prototype controls dragdrop effects).each do |lib|
+  unlink "public/javascripts/#{lib}.js"
+end
+if File.size('public/javascripts/application.js') < 200
+  unlink 'public/javascripts/application.js'
+  file   'public/javascripts/application.js', "jQuery(function($){\n});\n"
+end
+unlink 'public/images/rails.png'
+unlink 'public/index.html'
+
+application_name = File.basename(root).gsub('_',' ').capitalize
+if File.size('README') == 10011
+  unlink 'README'
+  file   'README', "= #{application_name}\n"
+end
+if File.size('doc/README_FOR_APP') == 211
+  unlink 'doc/README_FOR_APP'
+  file   'doc/README_FOR_APP', "= #{application_name}\n"
+end
+
+gsub_file 'app/helpers/application_helper.rb', /\A# Methods added to this .*\n/, ''
+gsub_file 'config/environment.rb', /(?:^\s*# config\.gem .*\n)+/, <<-EOS
+  config.gem "haml",        :version => ">= 2.0.7"
+  config.gem "rspec-rails", :version => ">= 1.1.12", :lib => false
+  config.gem "cucumber",    :version => ">= 0.1.16", :lib => false
+  config.gem "webrat",      :version => ">= 0.4.1",  :lib => false
+EOS
+gsub_file 'config/routes.rb', /^(ActionController::Routing::Routes\.draw do \|map\|\n)(?:^\s*\n|^\s*#.*\n)*/, '\\1'
+
+reformat *Dir.glob('config/environments/*.rb')
+reformat 'config/environment.rb', 'config/routes.rb', 'config/boot.rb', 'config/initializers/session_store.rb', 'script/about'
+
+added_cucumber = !File.directory?('features')
+generate 'terraformation', '--skip', '--full'
+if added_cucumber
+  reformat 'features/support/env.rb', 'features/step_definitions/webrat_steps.rb'
+end
+
+unless File.directory?('.git')
+  git :init
+  git :add => '.'
+  git :config => 'branch.master.remote origin'
+  git :config => 'branch.master.merge refs/heads/master'
+end

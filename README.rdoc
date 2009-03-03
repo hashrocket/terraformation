@@ -5,7 +5,8 @@ Terraform your application with these Hashrocket best practice generators.
 == Installation
 
 Install as a plugin or a gem.  Run script/generate with no arguments to see
-the available generators.
+the available generators.  The gem version also makes available a terrarails
+script for creating a new application.
 
 == Credits
 
