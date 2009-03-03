@@ -11,6 +11,12 @@ class TerraformationGenerator < Rails::Generator::Base
 
   def manifest
     record do |m|
+      usage if (options.keys - [:collision, :command, :generator, :quiet]).empty?
+
+      if option?(:jquery)
+        m.file      'jquery.js',                 'public/javascripts/jquery.js'
+      end
+
       if option?(:blueprint)
         m.directory 'public/stylesheets/blueprint'
         m.file      'blueprint/ie.css',          'public/stylesheets/blueprint/ie.css'
@@ -18,13 +24,8 @@ class TerraformationGenerator < Rails::Generator::Base
         m.file      'blueprint/screen.css',      'public/stylesheets/blueprint/screen.css'
       end
 
-      m.file      'jquery.js',                   'public/javascripts/jquery.js'
-      m.template  'application.html.haml.erb',   'app/views/layouts/application.html.haml'
-
-      if option?(:gitignore)
-        m.file 'gitignore',                      '.gitignore'
-        m.file 'null_gitignore',                 'tmp/.gitignore'
-        m.file 'null_gitignore',                 'log/.gitignore'
+      if option?(:jquery) || option?(:blueprint)
+        m.template  'application.html.haml.erb', 'app/views/layouts/application.html.haml'
       end
 
       script_options = { :chmod => 0755, :shebang => options[:shebang] == DEFAULT_SHEBANG ? nil : options[:shebang] }
@@ -58,6 +59,12 @@ class TerraformationGenerator < Rails::Generator::Base
         m.file      'paths.rb',                      'features/support/paths.rb'
         m.file      'cucumber:webrat_steps.rb',      'features/step_definitions/webrat_steps.rb'
       end
+
+      if option?(:gitignore)
+        m.file 'gitignore',                      '.gitignore'
+        m.file 'null_gitignore',                 'tmp/.gitignore'
+        m.file 'null_gitignore',                 'log/.gitignore'
+      end
     end
   end
 
@@ -69,10 +76,11 @@ class TerraformationGenerator < Rails::Generator::Base
 
   def add_options!(opt)
     super
+    opt.on("--[no-]jquery", "Install jQuery")       { |v| options[:jquery]    = v }
     opt.on("--[no-]blueprint", "Install Blueprint") { |v| options[:blueprint] = v }
-    opt.on("--[no-]gitignore", "Default gitignore") { |v| options[:gitignore] = v }
     opt.on("--[no-]rspec", "Set up RSpec")          { |v| options[:rspec]     = v }
     opt.on("--[no-]cucumber", "Set up Cucumber")    { |v| options[:cucumber]  = v }
+    opt.on("--[no-]gitignore", "Default gitignore") { |v| options[:gitignore] = v }
     opt.on("--[no-]full", "Everything")             { |v| options[:full]      = v }
   end
 end

@@ -1,8 +1,2 @@
 Description:
-    Hashrocket bare bones bootstrap.
-
-Example:
-    ./script/generate terraformation
-        create  app/views/layouts/application.html.haml
-        create  lib/tasks/clear_test_default.rake
-        create  public/javascripts/jquery.js
+    Hashrocket bare bones bootstrap.  At least one option is required.
