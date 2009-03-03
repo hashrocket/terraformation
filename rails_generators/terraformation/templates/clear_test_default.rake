@@ -1,3 +1,3 @@
-unless File.directory?(File.join(Rails.root,'test'))
+unless File.exist?(File.join(Rails.root, 'test', 'test_helper.rb'))
   Rake::Task[:default].clear
 end
