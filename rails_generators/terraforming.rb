@@ -24,14 +24,15 @@ module Terraforming
   def views
     return @views if @views
     @views = []
+    haml = defined?(Haml) ? "haml" : "erb"
     args.delete_if do |arg|
       @views << case arg
-        when /^\w+\.\w+\.\w+$/ then arg
-        when /^\w+$/ then "#{arg}.html.haml"
-        when /^\w+\.js$/ then "#{arg}.rjs"
-        when /^\w+\.(?:html|fbml)$/ then "#{arg}.haml"
+        when /^\w+\.\w+\.\w+$/         then arg
+        when /^\w+$/                   then "#{arg}.html.#{haml}"
+        when /^\w+\.(?:html|fbml)$/    then "#{arg}.#{haml}"
         when /^\w+\.(?:xml|rss|atom)$/ then "#{arg}.builder"
-        when /^\w+\.\w+$/ then "#{arg}.erb"
+        when /^\w+\.js$/               then "#{arg}.rjs"
+        when /^\w+\.\w+$/              then "#{arg}.erb"
         else next
       end
     end
