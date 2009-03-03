@@ -24,7 +24,7 @@ class TerraformationGenerator < Rails::Generator::Base
         m.file      'blueprint/screen.css',      'public/stylesheets/blueprint/screen.css'
       end
 
-      if option?(:jquery) || option?(:blueprint)
+      if (option?(:jquery) || option?(:blueprint)) && options[:command] != :destroy
         m.template  'application.html.haml.erb', 'app/views/layouts/application.html.haml'
       end
 
