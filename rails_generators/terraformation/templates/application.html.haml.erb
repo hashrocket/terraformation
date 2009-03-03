@@ -5,7 +5,7 @@
     %meta{'http-equiv' => 'Content-Script-Type', :content => 'text/javascript'}
     - if protect_against_forgery?
       %meta{:name => 'authenticity_token', :content => form_authenticity_token}
-    %title= h(@title || "Application name")
+    %title= h(@title || "<%= File.basename(destination_path('')).gsub('_', ' ').capitalize %>")
 <% if exist?("public/stylesheets/blueprint") -%>
     = stylesheet_link_tag 'blueprint/screen', :media => 'screen, projection'
     = stylesheet_link_tag 'blueprint/print', :media => 'print'
