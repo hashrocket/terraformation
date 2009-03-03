@@ -57,7 +57,7 @@ class TerraresourceGenerator < Rails::Generator::NamedBase
         template = ["terracontroller:view.#{format}.#{engine}.erb", "terracontroller:view.#{engine}.erb", "terracontroller:view.erb"].detect {|f| File.exist?(source_path(f))}
         m.template template,
           path,
-          :assigns => { :action => "#{name}.#{format}", :path => path }
+          :assigns => { :class_name => @controller_class_name, :action => "#{name}.#{format}", :path => path }
       end
       m.route_resources controller_file_name
 
