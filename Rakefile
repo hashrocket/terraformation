@@ -3,7 +3,7 @@ require 'rake/gempackagetask'
 require 'fileutils'
 
 spec = Gem::Specification.new do |s|
-  s.name = "hashrocket-terraformation"
+  s.name = "terraformation"
   s.version = '0.0.0'
   s.summary = "Terraform your app with style"
   s.email = "info@hashrocket.com"
