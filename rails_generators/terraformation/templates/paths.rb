@@ -8,6 +8,9 @@ module NavigationHelpers
     when /^the ([\w ]+) page$/
       send("#{$1.gsub(/\W+/, '_')}_path")
 
+    when /^"(\/.*)"/
+      $1
+
     else
       raise "Can't find mapping from \"#{page_name}\" to a path."
     end
