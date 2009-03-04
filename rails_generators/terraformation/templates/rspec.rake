@@ -16,6 +16,7 @@ end
 
 begin
   require 'spec/rake/spectask'
+
   spec_prereq = File.exist?(File.join(RAILS_ROOT, 'config', 'database.yml')) ? "db:test:prepare" : []
   spec_opts = ["--options", "\"#{RAILS_ROOT}/spec/spec.opts\""]
   spec_opts.clear unless File.exist?(spec_opts.last[1..-2])
