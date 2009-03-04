@@ -23,8 +23,6 @@ class TerrascaffoldGenerator < Rails::Generator::NamedBase
       @controller_class_name = "#{@controller_class_nesting}::#{@controller_class_name_without_nesting}"
     end
 
-    @resource_generator = "scaffold"
-    @default_template_engine = "haml"
   end
 
   def manifest
@@ -47,15 +45,24 @@ class TerrascaffoldGenerator < Rails::Generator::NamedBase
       for action in scaffold_views
         m.template "view_#{action}.html_spec.rb.erb",
           File.join('spec/views', controller_class_path, controller_file_name, "#{action}.html_spec.rb")
+        if defined?(Haml)
+          m.template(
+            "view_#{action}.html.haml.erb",
+            File.join('app/views', controller_class_path, controller_file_name, "#{action}.html.haml")
+          )
+        else
+          m.template(
+            "scaffold:view_#{action}.html.erb",
+            File.join('app/views', controller_class_path, controller_file_name, "#{action}.html.erb")
+          )
+        end
+      end
+      if defined?(Haml)
         m.template(
-          "view_#{action}.html.#{@default_template_engine}.erb",
-          File.join('app/views', controller_class_path, controller_file_name, "#{action}.html.#{@default_template_engine}")
+          "partial_form.html.haml.erb",
+          File.join('app/views', controller_class_path, controller_file_name, "_form.html.haml")
         )
       end
-      m.template(
-        "partial_form.html.#{@default_template_engine}.erb",
-        File.join('app/views', controller_class_path, controller_file_name, "_form.html.#{@default_template_engine}")
-      )
 
       m.dependency 'terramodel', [name] + args, :collision => 'skip'
 

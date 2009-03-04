@@ -23,8 +23,6 @@ class TerraresourceGenerator < Rails::Generator::NamedBase
       @controller_class_name = "#{@controller_class_nesting}::#{@controller_class_name_without_nesting}"
     end
 
-    @resource_generator = "scaffold"
-    @default_template_engine = "haml"
   end
 
   def manifest
