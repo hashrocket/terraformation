@@ -6,7 +6,7 @@ module NavigationHelpers
       root_path
 
     when /^the ([\w ]+) page$/
-      send("#{page_name.gsub(/\W+/, '_')}_path")
+      send("#{$1.gsub(/\W+/, '_')}_path")
 
     else
       raise "Can't find mapping from \"#{page_name}\" to a path."
