@@ -5,7 +5,7 @@ Description:
 Example:
     ./script/generate terramodel Spaceship fuel_capacity:decimal
         ...
-        create  app/models/space_colony.rb
+        create  app/models/spaceship.rb
         create  spec/models/spaceship_spec.rb
         create  spec/exemplars/spaceship_exemplar.rb
         create  db/migrate/20090121225002_create_spaceships.rb
