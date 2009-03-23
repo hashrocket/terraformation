@@ -1,6 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '<%= '/..' * class_nesting_depth %>/../../spec_helper')
 
-<% output_attributes = attributes.reject{|attribute| [:datetime, :timestamp, :time, :date].index(attribute.type) } -%>
+<% output_attributes = attributes.reject{|attribute| [:datetime, :timestamp, :time, :date].include?(attribute.type) } -%>
 describe "/<%= plural_name %>/index.html" do
   before do
     assigns[:<%= plural_name %>] = [
@@ -16,10 +16,14 @@ describe "/<%= plural_name %>/index.html" do
     ]
   end
 
-  it "should render list of <%= plural_name %>" do
+  subject do
     render "<%= plural_name %>/index.html"
+    response
+  end
+
+  it "should render list of <%= plural_name %>" do
 <% for attribute in output_attributes -%>
-    response.should have_tag("tr>td", <%= attribute.default.inspect %>.to_s, 2)
+    should have_tag("tr>td", <%= attribute.default.inspect %>.to_s, 2)
 <% end -%>
   end
 end

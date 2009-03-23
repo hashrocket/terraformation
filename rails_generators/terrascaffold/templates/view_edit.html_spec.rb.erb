@@ -1,6 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '<%= '/..' * class_nesting_depth %>/../../spec_helper')
 
-<% output_attributes = attributes.reject{|attribute| [:datetime, :timestamp, :time, :date].index(attribute.type) } -%>
+<% output_attributes = attributes.reject{|attribute| [:datetime, :timestamp, :time, :date].include?(attribute.type) } -%>
 describe "/<%= plural_name %>/edit.html" do
   before do
     assigns[:<%= file_name %>] = @<%= file_name %> = stub_model(<%= class_name %>,
@@ -11,10 +11,13 @@ describe "/<%= plural_name %>/edit.html" do
     )
   end
 
-  it "should render edit form" do
+  subject do
     render "<%= plural_name %>/edit.html"
+    response
+  end
 
-    response.should have_tag("form[action=?][method=post]", <%= file_name %>_path(@<%= file_name %>)) do
+  it "should render edit form" do
+    should have_tag("form[action=?][method=post]", <%= file_name %>_path(@<%= file_name %>)) do
 <% for attribute in output_attributes -%>
       with_tag('#<%= file_name %>_<%= attribute.name %>[name=?]', "<%= file_name %>[<%= attribute.name %>]")
 <% end -%>

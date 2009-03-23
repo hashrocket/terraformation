@@ -1,6 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '<%= '/..' * class_nesting_depth %>/../../spec_helper')
 
-<% output_attributes = attributes.reject{|attribute| [:datetime, :timestamp, :time, :date].index(attribute.type) } -%>
+<% output_attributes = attributes.reject{|attribute| [:datetime, :timestamp, :time, :date].include?(attribute.type) } -%>
 describe "/<%= plural_name %>/show.html" do
   before do
     assigns[:<%= file_name %>] = @<%= file_name %> = stub_model(<%= class_name %><%= output_attributes.empty? ? ')' : ',' %>
@@ -12,10 +12,14 @@ describe "/<%= plural_name %>/show.html" do
 <% end -%>
   end
 
-  it "should render attributes in <p>" do
+  subject do
     render "<%= plural_name %>/show.html"
+    response
+  end
+
+  it "should render attributes in <p>" do
 <% for attribute in output_attributes -%>
-    response.should have_text(/<%= Regexp.escape(attribute.default.inspect).gsub(/^"|"$/, '')%>/)
+    should have_text(/<%= Regexp.escape(attribute.default.inspect).gsub(/^"|"$/, '')%>/)
 <% end -%>
   end
 end

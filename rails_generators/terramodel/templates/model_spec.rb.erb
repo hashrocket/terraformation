@@ -1,17 +1,17 @@
 require File.expand_path(File.dirname(__FILE__) + '<%= '/..' * class_nesting_depth %>/../spec_helper')
 
 describe <%= class_name %> do
-  before do
+  subject do
 <% if factory? -%>
-    @<%= singular_name %> = Factory.build(<%= full_name.to_sym.inspect %>)
+    Factory.build(<%= full_name.to_sym.inspect %>)
 <% elsif exemplar? -%>
-    @<%= singular_name %> = <%= class_name %>.spawn
+    <%= class_name %>.spawn
 <% else -%>
-    @<%= singular_name %> = <%= class_name %>.new
+    <%= class_name %>.new
 <% end -%>
   end
 
   it "should be valid" do
-    @<%= singular_name %>.should be_valid
+    should be_valid
   end
 end
