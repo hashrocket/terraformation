@@ -5,6 +5,10 @@ class TerraformationGenerator < Rails::Generator::Base
                               Config::CONFIG['ruby_install_name'])
   include Terraforming
 
+  def framework # for cucumber templates
+    :rspec
+  end
+
   def option?(key)
     options.fetch(key, options[:full])
   end
@@ -55,9 +59,9 @@ class TerraformationGenerator < Rails::Generator::Base
         m.directory 'features/support'
         m.directory 'features/step_definitions'
 
-        m.file      'cucumber:env.rb',               'features/support/env.rb'
+        m.template  'cucumber:env.rb',               'features/support/env.rb'
         m.file      'paths.rb',                      'features/support/paths.rb'
-        m.file      'cucumber:webrat_steps.rb',      'features/step_definitions/webrat_steps.rb'
+        m.template  'cucumber:webrat_steps.rb',      'features/step_definitions/webrat_steps.rb'
       end
 
       if option?(:gitignore)
