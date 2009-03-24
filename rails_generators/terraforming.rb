@@ -27,12 +27,12 @@ module Terraforming
     haml = defined?(Haml) ? "haml" : "erb"
     args.delete_if do |arg|
       @views << case arg
-        when /^\w+\.\w+\.\w+$/         then arg
-        when /^\w+$/                   then "#{arg}.html.#{haml}"
-        when /^\w+\.(?:html|fbml)$/    then "#{arg}.#{haml}"
-        when /^\w+\.(?:xml|rss|atom)$/ then "#{arg}.builder"
-        when /^\w+\.js$/               then "#{arg}.rjs"
-        when /^\w+\.\w+$/              then "#{arg}.erb"
+        when /^[\w\/]+\.\w+\.\w+$/         then arg
+        when /^[\w\/]+$/                   then "#{arg}.html.#{haml}"
+        when /^[\w\/]+\.(?:html|fbml)$/    then "#{arg}.#{haml}"
+        when /^[\w\/]+\.(?:xml|rss|atom)$/ then "#{arg}.builder"
+        when /^[\w\/]+\.js$/               then "#{arg}.rjs"
+        when /^[\w\/]+\.\w+$/              then "#{arg}.erb"
         else next
       end
     end
