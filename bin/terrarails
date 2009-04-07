@@ -68,6 +68,9 @@ if File.size('doc/README_FOR_APP') == 211
   file   'doc/README_FOR_APP', "= #{application_name}\n"
 end
 
+added_cucumber = !File.directory?('features')
+generate 'terraformation', '--skip', '--full'
+
 gsub_file 'app/helpers/application_helper.rb', /\A# Methods added to this .*\n/, ''
 gsub_file 'config/environment.rb', /(?:^\s*# config\.gem .*\n)+/, <<-EOS
   config.gem "haml",        :version => ">= 2.0.7"
@@ -80,8 +83,6 @@ gsub_file 'config/routes.rb', /^(ActionController::Routing::Routes\.draw do \|ma
 reformat *Dir.glob('config/environments/*.rb')
 reformat 'config/environment.rb', 'config/routes.rb', 'config/boot.rb', 'config/initializers/session_store.rb', 'script/about'
 
-added_cucumber = !File.directory?('features')
-generate 'terraformation', '--skip', '--full'
 if added_cucumber
   reformat 'features/support/env.rb', 'features/step_definitions/webrat_steps.rb'
 end
