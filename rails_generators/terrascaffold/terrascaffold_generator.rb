@@ -9,6 +9,37 @@ class TerrascaffoldGenerator < Rails::Generator::NamedBase
                 :controller_class_name,
                 :controller_file_name
 
+  def mocha?
+    if @mocha.nil?
+      @mocha = Rails.configuration.gems.any? {|g| g.name == "mocha"}
+    end
+    @mocha
+  end
+
+  def stub
+    if mocha?
+      "stubs"
+    else
+      "stub!"
+    end
+  end
+
+  def should_receive
+    if mocha?
+      "expects"
+    else
+      "should_receive"
+    end
+  end
+
+  def and_return
+    if mocha?
+      "returns"
+    else
+      "and_return"
+    end
+  end
+
   def initialize(runtime_args, runtime_options = {})
     super
 
