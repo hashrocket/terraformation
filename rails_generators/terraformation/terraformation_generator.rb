@@ -39,7 +39,7 @@ class TerraformationGenerator < Rails::Generator::Base
       end
 
       if option?(:rspec)
-        m.file      'rspec.rake',                    'lib/tasks/rspec.rake'
+        m.file      'rspec:rspec.rake',              'lib/tasks/rspec.rake'
 
         m.file      'rspec:script/autospec',         'script/autospec',    script_options
         m.file      'rspec:script/spec',             'script/spec',        script_options
