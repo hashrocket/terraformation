@@ -54,6 +54,7 @@ class TerraformationGenerator < Rails::Generator::Base
       if option?(:cucumber)
         m.file      'cucumber.rake',                 'lib/tasks/cucumber.rake'
         m.file      'cucumber',                      'script/cucumber',    script_options
+        m.file      'cucumber_environment.rb',       'config/environments/cucumber.rb'
 
         m.directory 'features'
         m.directory 'features/support'
@@ -62,6 +63,14 @@ class TerraformationGenerator < Rails::Generator::Base
         m.template  'cucumber:env.rb',               'features/support/env.rb'
         m.file      'paths.rb',                      'features/support/paths.rb'
         m.template  'cucumber:webrat_steps.rb',      'features/step_definitions/webrat_steps.rb'
+
+        %w(config/database.yml config/database.example.yml config/database.yml.example).each do |file|
+          path = destination_path(file)
+          if File.exist?(path) && !File.read(path).include?("\ncucumber:")
+            m.gsub_file file, /test:.*\n/, "test: &TEST\n"
+            m.gsub_file file, /\z/, "\ncucumber:\n  <<: *TEST\n"
+          end
+        end
       end
 
       if option?(:gitignore)
