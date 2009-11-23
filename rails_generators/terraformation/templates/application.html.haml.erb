@@ -1,11 +1,11 @@
 !!!
 %html{html_attrs}
   %head
-    %meta{'http-equiv' => 'Content-Type', :content => 'text/html;charset=utf-8'}
-    %meta{'http-equiv' => 'Content-Script-Type', :content => 'text/javascript'}
+    %meta(http-equiv='Content-Type' content='text/html;charset=utf-8')
+    %meta(http-equiv='Content-Script-Type' content='text/javascript')
     - if protect_against_forgery?
-      %meta{:name => 'authenticity_token', :content => form_authenticity_token}
-    %title= h(@title || "<%= File.basename(destination_path('')).gsub('_', ' ').capitalize %>")
+      %meta(name='authenticity_token' content=form_authenticity_token)
+    %title&= @title || "<%= File.basename(destination_path('')).gsub('_', ' ').capitalize %>"
 <% if exist?("public/stylesheets/blueprint") -%>
     = stylesheet_link_tag 'blueprint/screen', :media => 'screen, projection'
     = stylesheet_link_tag 'blueprint/print', :media => 'print'
