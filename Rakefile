@@ -19,11 +19,6 @@ Rake::GemPackageTask.new(spec) do |package|
   package.gem_spec = spec
 end
 
-desc "Generate the static gemspec required for github"
-task :gemspec do
-  open("terraformation.gemspec", "w").write(spec.to_ruby)
-end
-
 desc "Install terraformation"
 task :install => :repackage do
   sh %{sudo gem install pkg/#{spec.name}-#{spec.version}}
