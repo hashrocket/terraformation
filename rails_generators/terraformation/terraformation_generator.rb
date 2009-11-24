@@ -43,7 +43,6 @@ class TerraformationGenerator < Rails::Generator::Base
 
         m.file      'rspec:script/autospec',         'script/autospec',    script_options
         m.file      'rspec:script/spec',             'script/spec',        script_options
-        m.file      'rspec:script/spec_server',      'script/spec_server', script_options
 
         m.directory 'spec'
         m.file      'rcov.opts',                     'spec/rcov.opts'
