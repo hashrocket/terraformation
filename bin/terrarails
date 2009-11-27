@@ -73,7 +73,7 @@ generate 'terraformation', '--skip', '--full'
 
 gsub_file 'app/helpers/application_helper.rb', /\A# Methods added to this .*\n/, ''
 gsub_file 'config/environment.rb', /(?:^\s*# config\.gem .*\n)+/, <<-EOS
-  config.gem "haml",        :version => ">= 2.2.3"
+  config.gem "haml",        :version => ">= 2.2.14"
   config.gem "rspec-rails", :version => ">= 1.2.9", :lib => false
   config.gem "cucumber",    :version => ">= 0.4.4", :lib => false
   config.gem "webrat",      :version => ">= 0.5.3", :lib => false
