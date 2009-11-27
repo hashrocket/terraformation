@@ -51,8 +51,9 @@ class TerraformationGenerator < Rails::Generator::Base
       end
 
       if option?(:cucumber)
+        require 'cucumber' # for Cucumber::VERSION
         m.file      'cucumber.rake',                 'lib/tasks/cucumber.rake'
-        m.file      'cucumber',                      'script/cucumber',    script_options
+        m.file      'cucumber:cucumber',             'script/cucumber', script_options
         m.file      'cucumber_environment.rb',       'config/environments/cucumber.rb'
 
         m.directory 'features'
