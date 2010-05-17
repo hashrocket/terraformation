@@ -4,7 +4,7 @@ require 'fileutils'
 
 spec = Gem::Specification.new do |s|
   s.name = "terraformation"
-  s.version = "0.1.3"
+  s.version = "0.2.0"
   s.summary = "Generators with a Hashrocket twist"
   s.email = "info@hashrocket.com"
   s.homepage = "http://github.com/hashrocket/terraformation"
