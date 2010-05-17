@@ -1,5 +1,5 @@
 ENV["RAILS_ENV"] ||= 'test'
-require File.expand_path('../../config/environment', __FILE__)
+require File.expand_path(File.join(File.dirname(__FILE__),'..','config','environment'))
 require 'spec/autorun'
 require 'spec/rails'
 
@@ -10,5 +10,4 @@ Spec::Runner.configure do |config|
   config.use_instantiated_fixtures  = false
   config.fixture_path = RAILS_ROOT + '/spec/fixtures/'
   config.global_fixtures = :all
-  # config.mock_with :mocha
 end
