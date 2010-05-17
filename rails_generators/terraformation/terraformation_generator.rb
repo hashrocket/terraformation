@@ -35,34 +35,33 @@ class TerraformationGenerator < Rails::Generator::Base
       script_options = { :chmod => 0755, :shebang => options[:shebang] == DEFAULT_SHEBANG ? nil : options[:shebang] }
       if option?(:rspec) || option?(:cucumber)
         m.directory 'lib/tasks'
-        m.file      'clear_test_default.rake',     'lib/tasks/clear_test_default.rake'
+        m.file      'clear_test_default.rake',   'lib/tasks/clear_test_default.rake'
       end
 
       if option?(:rspec)
-        m.file      'rspec.rake',                    'lib/tasks/rspec.rake'
+        m.file      'rspec.rake',                'lib/tasks/rspec.rake'
 
-        m.file      'rspec:script/autospec',         'script/autospec',    script_options
-        m.file      'rspec:script/spec',             'script/spec',        script_options
+        m.file      'rspec:script/autospec',     'script/autospec',    script_options
+        m.file      'rspec:script/spec',         'script/spec',        script_options
 
         m.directory 'spec'
-        m.file      'rcov.opts',                     'spec/rcov.opts'
-        m.file      'spec.opts',                     'spec/spec.opts'
-        m.file      'spec_helper.rb',                'spec/spec_helper.rb'
+        m.file      'rcov.opts',                 'spec/rcov.opts'
+        m.file      'spec.opts',                 'spec/spec.opts'
+        m.file      'spec_helper.rb',            'spec/spec_helper.rb'
       end
 
       if option?(:cucumber)
-        require 'cucumber' # for Cucumber::VERSION
-        m.file      'cucumber.rake',                 'lib/tasks/cucumber.rake'
-        m.file      'cucumber:cucumber',             'script/cucumber', script_options
-        m.file      'cucumber_environment.rb',       'config/environments/cucumber.rb'
+        m.file      'cucumber.rake',             'lib/tasks/cucumber.rake'
+        m.file      'cucumber',                  'script/cucumber', script_options
+        m.file      'cucumber_environment.rb',   'config/environments/cucumber.rb'
 
         m.directory 'features'
         m.directory 'features/support'
         m.directory 'features/step_definitions'
 
-        m.template  'cucumber:env.rb',               'features/support/env.rb'
-        m.file      'paths.rb',                      'features/support/paths.rb'
-        m.template  'cucumber:webrat_steps.rb',      'features/step_definitions/webrat_steps.rb'
+        m.file      'env.rb',                    'features/support/env.rb'
+        m.file      'paths.rb',                  'features/support/paths.rb'
+        m.template  'web_steps.rb',              'features/step_definitions/web_steps.rb'
 
         %w(config/database.yml config/database.example.yml config/database.yml.example).each do |file|
           path = destination_path(file)
