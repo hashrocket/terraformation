@@ -5,6 +5,7 @@
 /doc/app
 /doc/plugins
 /public/system
+/.bundle
 .DS_Store
 *~
 .*.sw?

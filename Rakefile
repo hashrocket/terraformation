@@ -13,8 +13,6 @@ spec = Gem::Specification.new do |s|
   s.files = %w( LICENSE README.rdoc Rakefile ) + Dir["{bin,rails_generators}/**/*"].sort
   s.extra_rdoc_files = ["README.rdoc", "LICENSE"]
   s.executables = ["terrarails"]
-  s.add_dependency("haml", "2.2.14")
-  s.add_dependency("rspec-rails", "1.2.9")
 end
 
 Rake::GemPackageTask.new(spec) do |package|
