@@ -118,7 +118,7 @@ end
 
 system 'bundle', 'install'
 
-generate 'terraformation', '--skip', '--full', '--no-cucumber'
+generate 'terraformation', '--skip', '--full', '--no-cucumber', '--no-blueprint'
 
 reformat(*Dir.glob('config/environments/*.rb'))
 reformat 'config/environment.rb', 'config/routes.rb', 'config/boot.rb', 'config/initializers/session_store.rb', 'script/about'
