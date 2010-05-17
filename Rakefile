@@ -15,8 +15,6 @@ spec = Gem::Specification.new do |s|
   s.executables = ["terrarails"]
   s.add_dependency("haml", "2.2.14")
   s.add_dependency("rspec-rails", "1.2.9")
-  s.add_dependency("cucumber", "0.4.4")
-  s.add_dependency("webrat", "0.5.3")
 end
 
 Rake::GemPackageTask.new(spec) do |package|
