@@ -10,19 +10,19 @@ When /^I go to (.+)$/ do |page_name|
   visit path_to(page_name)
 end
 
-When /^I press "([^\"]*)"$/ do |button, selector|
+When /^I press "([^\"]*)"$/ do |button|
   click_button(button)
 end
 
-When /^I follow "([^\"]*)"$/ do |link, selector|
+When /^I follow "([^\"]*)"$/ do |link|
   click_link(link)
 end
 
-When /^I fill in "([^\"]*)" with "([^\"]*)"$/ do |field, value, selector|
+When /^I fill in "([^\"]*)" with "([^\"]*)"$/ do |field, value|
   fill_in(field, :with => value)
 end
 
-When /^I fill in "([^\"]*)" for "([^\"]*)"$/ do |value, field, selector|
+When /^I fill in "([^\"]*)" for "([^\"]*)"$/ do |value, field|
   fill_in(field, :with => value)
 end
 
@@ -37,29 +37,29 @@ end
 # TODO: Add support for checkbox, select og option
 # based on naming conventions.
 #
-When /^I fill in the following:$/ do |selector, fields|
+When /^I fill in the following:$/ do |fields|
   fields.rows_hash.each do |name, value|
     When %{I fill in "#{name}" with "#{value}"}
   end
 end
 
-When /^I select "([^\"]*)" from "([^\"]*)"$/ do |value, field, selector|
+When /^I select "([^\"]*)" from "([^\"]*)"$/ do |value, field|
   select(value, :from => field)
 end
 
-When /^I check "([^\"]*)"$/ do |field, selector|
+When /^I check "([^\"]*)"$/ do |field|
   check(field)
 end
 
-When /^I uncheck "([^\"]*)"$/ do |field, selector|
+When /^I uncheck "([^\"]*)"$/ do |field|
   uncheck(field)
 end
 
-When /^I choose "([^\"]*)"$/ do |field, selector|
+When /^I choose "([^\"]*)"$/ do |field|
   choose(field)
 end
 
-When /^I attach the file "([^\"]*)" to "([^\"]*)"$/ do |path, field, selector|
+When /^I attach the file "([^\"]*)" to "([^\"]*)"$/ do |path, field|
   attach_file(field, path)
 end
 
@@ -70,42 +70,42 @@ Then /^I should see JSON:$/ do |expected_json|
   expected.should == actual
 end
 
-Then /^I should see "([^\"]*)"$/ do |text, selector|
+Then /^I should see "([^\"]*)"$/ do |text|
   page.should have_content(text)
 end
 
-Then /^I should see \/([^\/]*)\/$/ do |regexp, selector|
+Then /^I should see \/([^\/]*)\/$/ do |regexp|
   regexp = Regexp.new(regexp)
   page.should have_xpath('//*', :text => regexp)
 end
 
-Then /^I should not see "([^\"]*)"$/ do |text, selector|
+Then /^I should not see "([^\"]*)"$/ do |text|
   page.should have_no_content(text)
 end
 
-Then /^I should not see \/([^\/]*)\/$/ do |regexp, selector|
+Then /^I should not see \/([^\/]*)\/$/ do |regexp|
   regexp = Regexp.new(regexp)
   page.should have_no_xpath('//*', :text => regexp)
 end
 
-Then /^the "([^\"]*)" field should contain "([^\"]*)"$/ do |field, selector, value|
+Then /^the "([^\"]*)" field should contain "([^\"]*)"$/ do |field, value|
   field = find_field(field)
   field_value = (field.tag_name == 'textarea') ? field.text : field.value
   field_value.should =~ /#{value}/
 end
 
-Then /^the "([^\"]*)" field should not contain "([^\"]*)"$/ do |field, selector, value|
+Then /^the "([^\"]*)" field should not contain "([^\"]*)"$/ do |field, value|
   field = find_field(field)
   field_value = (field.tag_name == 'textarea') ? field.text : field.value
   field_value.should_not =~ /#{value}/
 end
 
-Then /^the "([^\"]*)" checkbox should be checked$/ do |label, selector|
+Then /^the "([^\"]*)" checkbox should be checked$/ do |label|
   field_checked = find_field(label)['checked']
   field_checked.should == 'checked'
 end
 
-Then /^the "([^\"]*)" checkbox should not be checked$/ do |label, selector|
+Then /^the "([^\"]*)" checkbox should not be checked$/ do |label|
   field_checked = find_field(label)['checked']
   field_checked.should_not == 'checked'
 end
