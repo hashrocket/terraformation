@@ -8,7 +8,12 @@ if instance_of?(Object) # Invoked directly
   elsif ARGV.empty?
     exec('rake', 'rails:template', "LOCATION=#{__FILE__}")
   else
-    exec('rails', '--template', __FILE__, *ARGV)
+    require 'rails/version'
+    if Rails::VERSION::MAJOR >= 3
+      exec('rails', 'new', *ARGV + ['--template', __FILE__])
+    else
+      exec('rails', '--template', __FILE__, *ARGV)
+    end
   end
 end
 
