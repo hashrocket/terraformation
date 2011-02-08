@@ -32,10 +32,10 @@ def self.reformat(*files)
   end
 end
 
-unless File.exist?('config/database.example.yml')
+if File.exist?('config/database.example.yml') && !File.exist?('config/database.example.yml')
   file 'config/database.example.yml', File.read('config/database.yml')
 end
-adapter = YAML.load(File.read('config/database.yml'))['development']['adapter']
+adapter = YAML.load(File.read('config/database.yml'))['development']['adapter'] rescue 'sqlite3'
 
 unlink 'test/performance/browsing_test.rb'
 %w(test/fixtures test/functional test/integration test/performance test/unit).each do |d|
