@@ -59,7 +59,11 @@ end
 unlink 'public/images/rails.png'
 unlink 'public/index.html'
 
-application_name = File.basename(root).gsub('_',' ').capitalize
+if respond_to?(:root)
+  application_name = File.basename(root).gsub('_',' ').capitalize
+else
+  application_name = app_name.capitalize
+end
 if File.size('README') == 10011
   unlink 'README'
   file   'README', "= #{application_name}\n"
